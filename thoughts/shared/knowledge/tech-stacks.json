@@ -1,0 +1,738 @@
+{
+  "version": "1.0",
+  "last_updated": "2025-10-24",
+  "languages": {
+    "typescript": {
+      "name": "TypeScript",
+      "description": "Typed superset of JavaScript for large-scale applications",
+      "pros": [
+        "Full-stack capability with Node.js",
+        "Type safety and excellent IDE support",
+        "Huge npm ecosystem (2M+ packages)",
+        "Great tooling and developer experience",
+        "Can use any JavaScript library"
+      ],
+      "cons": [
+        "Runtime performance limitations",
+        "Complex build configurations",
+        "Bundle size can be large",
+        "Memory usage higher than compiled languages"
+      ],
+      "performance": "Moderate - V8 engine, single-threaded by default",
+      "learning_curve": "Low to Medium (if familiar with JavaScript)",
+      "use_cases": [
+        "Full-stack web applications",
+        "APIs and microservices",
+        "Real-time applications",
+        "Rapid MVPs"
+      ],
+      "frameworks": {
+        "nextjs": {
+          "name": "Next.js",
+          "version": "15.x",
+          "type": "Full-stack React framework",
+          "pros": [
+            "Full-stack React with SSR/SSG/ISR",
+            "Great SEO and performance",
+            "Vercel integration and deployment",
+            "API routes built-in",
+            "App Router with React Server Components"
+          ],
+          "cons": [
+            "Learning curve for SSR concepts",
+            "Opinionated structure",
+            "Can be over-engineering for simple SPAs",
+            "Vendor lock-in risk with Vercel features"
+          ],
+          "use_cases": [
+            "Marketing websites",
+            "E-commerce platforms",
+            "SaaS applications",
+            "SEO-critical apps"
+          ],
+          "performance": "Excellent - SSR/SSG optimization"
+        },
+        "nestjs": {
+          "name": "NestJS",
+          "version": "11.x",
+          "type": "Enterprise backend framework",
+          "pros": [
+            "Enterprise-ready architecture",
+            "Modular and scalable design",
+            "TypeScript-first with decorators",
+            "Built-in dependency injection",
+            "Angular-like structure"
+          ],
+          "cons": [
+            "Heavyweight for simple APIs",
+            "Steep learning curve",
+            "More boilerplate code",
+            "Can be over-engineering for MVPs"
+          ],
+          "use_cases": [
+            "Large-scale APIs",
+            "Microservices",
+            "Enterprise applications",
+            "Complex domain logic"
+          ],
+          "performance": "Good - Express or Fastify underneath"
+        },
+        "express": {
+          "name": "Express",
+          "version": "4.x",
+          "type": "Minimalist web framework",
+          "pros": [
+            "Minimal and unopinionated",
+            "Huge ecosystem and middleware",
+            "Well-documented and battle-tested",
+            "Flexible and customizable"
+          ],
+          "cons": [
+            "No built-in structure",
+            "Manual setup for everything",
+            "Callback hell without care",
+            "Aging ecosystem"
+          ],
+          "use_cases": [
+            "Simple REST APIs",
+            "Custom architectures",
+            "Learning Node.js",
+            "Maximum flexibility needed"
+          ],
+          "performance": "Good - Lightweight"
+        },
+        "fastify": {
+          "name": "Fastify",
+          "version": "4.x",
+          "type": "Fast web framework",
+          "pros": [
+            "High performance (20k+ req/s)",
+            "Schema-based validation",
+            "Plugin architecture",
+            "Modern async/await support",
+            "Built-in TypeScript support"
+          ],
+          "cons": [
+            "Smaller ecosystem than Express",
+            "Less middleware available",
+            "Different patterns from Express"
+          ],
+          "use_cases": [
+            "High-performance APIs",
+            "JSON-heavy applications",
+            "Modern TypeScript projects"
+          ],
+          "performance": "Excellent - One of fastest Node.js frameworks"
+        }
+      }
+    },
+    "go": {
+      "name": "Go",
+      "description": "Statically typed, compiled language designed at Google",
+      "pros": [
+        "Excellent performance and low memory",
+        "Simple deployment (single binary)",
+        "Great concurrency with goroutines",
+        "Fast compilation",
+        "Strong standard library"
+      ],
+      "cons": [
+        "More verbose than dynamic languages",
+        "Smaller web ecosystem",
+        "No generics until Go 1.18",
+        "Steeper learning curve for beginners"
+      ],
+      "performance": "Excellent - Compiled, efficient runtime",
+      "learning_curve": "Medium",
+      "use_cases": [
+        "High-performance APIs",
+        "Microservices",
+        "CLI tools",
+        "Systems programming",
+        "DevOps tools"
+      ],
+      "frameworks": {
+        "gin": {
+          "name": "Gin",
+          "version": "1.9+",
+          "type": "HTTP web framework",
+          "pros": [
+            "Fast and lightweight",
+            "Minimalist approach",
+            "Good documentation",
+            "Active community",
+            "Low learning curve"
+          ],
+          "cons": [
+            "Less opinionated",
+            "Manual middleware setup",
+            "Fewer built-in features"
+          ],
+          "use_cases": [
+            "REST APIs",
+            "Microservices",
+            "High-throughput services"
+          ],
+          "performance": "Excellent - ~40k req/s"
+        },
+        "fiber": {
+          "name": "Fiber",
+          "version": "2.x",
+          "type": "Express-inspired framework",
+          "pros": [
+            "Express-like API (easy for JS devs)",
+            "Extremely fast performance",
+            "Zero memory allocation",
+            "Built on fasthttp"
+          ],
+          "cons": [
+            "Uses fasthttp not net/http",
+            "Different from Go stdlib patterns",
+            "Less mature than Gin"
+          ],
+          "use_cases": [
+            "Maximum performance needed",
+            "Express developers transitioning",
+            "High-throughput APIs"
+          ],
+          "performance": "Excellent - ~60k req/s, fastest Go framework"
+        },
+        "echo": {
+          "name": "Echo",
+          "version": "4.x",
+          "type": "High-performance framework",
+          "pros": [
+            "High performance",
+            "Clean and elegant API",
+            "Good middleware support",
+            "Extensible"
+          ],
+          "cons": [
+            "Less popular than Gin",
+            "Smaller community",
+            "Fewer resources"
+          ],
+          "use_cases": [
+            "RESTful APIs",
+            "Web services",
+            "Modern Go projects"
+          ],
+          "performance": "Excellent - ~50k req/s"
+        }
+      }
+    },
+    "python": {
+      "name": "Python",
+      "description": "High-level, interpreted language known for readability",
+      "pros": [
+        "Rapid development and prototyping",
+        "Rich ecosystem (PyPI)",
+        "Best-in-class AI/ML libraries",
+        "Easy to learn and read",
+        "Great for data science"
+      ],
+      "cons": [
+        "GIL limitations for concurrency",
+        "Slower than compiled languages",
+        "Runtime type errors",
+        "Deployment can be complex"
+      ],
+      "performance": "Moderate - Interpreted, but improving",
+      "learning_curve": "Low - Very beginner friendly",
+      "use_cases": [
+        "Data science and ML",
+        "Rapid prototyping",
+        "Backend APIs",
+        "Automation and scripting",
+        "Scientific computing"
+      ],
+      "frameworks": {
+        "fastapi": {
+          "name": "FastAPI",
+          "version": "0.119+",
+          "type": "Modern async web framework",
+          "pros": [
+            "Fastest Python framework (21k+ req/s)",
+            "Automatic OpenAPI documentation",
+            "Type hints and validation",
+            "Async support with asyncio",
+            "Modern Python features"
+          ],
+          "cons": [
+            "Async learning curve",
+            "Younger than Django/Flask",
+            "Less batteries-included than Django"
+          ],
+          "use_cases": [
+            "Modern REST APIs",
+            "ML/AI backends",
+            "Microservices",
+            "Async applications"
+          ],
+          "performance": "Excellent - 21,000+ req/s, on par with Node.js"
+        },
+        "django": {
+          "name": "Django",
+          "version": "5.1+",
+          "type": "Full-stack web framework",
+          "pros": [
+            "Batteries included (ORM, admin, auth)",
+            "20+ years of maturity",
+            "Excellent documentation",
+            "Built-in admin panel",
+            "Large community"
+          ],
+          "cons": [
+            "Monolithic structure",
+            "Slower performance",
+            "Steep learning curve",
+            "Overkill for simple APIs"
+          ],
+          "use_cases": [
+            "Full-stack web apps",
+            "CMS systems",
+            "Admin-heavy applications",
+            "Enterprise projects"
+          ],
+          "performance": "Moderate - Synchronous by default"
+        },
+        "flask": {
+          "name": "Flask",
+          "version": "3.x",
+          "type": "Micro web framework",
+          "pros": [
+            "Minimalist and flexible",
+            "Easy to learn",
+            "Large extension ecosystem",
+            "Unopinionated"
+          ],
+          "cons": [
+            "Requires many extensions",
+            "No async support (pre-3.0)",
+            "Less structure than Django",
+            "Can become messy"
+          ],
+          "use_cases": [
+            "Simple REST APIs",
+            "Prototypes",
+            "Microservices",
+            "Learning Python web dev"
+          ],
+          "performance": "Moderate - Lightweight but synchronous"
+        }
+      }
+    },
+    "rust": {
+      "name": "Rust",
+      "description": "Systems programming language focused on safety and performance",
+      "pros": [
+        "Memory safety without garbage collection",
+        "Zero-cost abstractions",
+        "Fearless concurrency",
+        "Best-in-class performance",
+        "No runtime overhead"
+      ],
+      "cons": [
+        "Very steep learning curve",
+        "Longer development time",
+        "Smaller web ecosystem",
+        "Borrow checker complexity",
+        "Less approachable for beginners"
+      ],
+      "performance": "Excellent - Comparable to C/C++",
+      "learning_curve": "Very High - Ownership and lifetimes",
+      "use_cases": [
+        "Systems programming",
+        "High-performance APIs",
+        "Security-critical apps",
+        "Embedded systems",
+        "WebAssembly"
+      ],
+      "frameworks": {
+        "axum": {
+          "name": "Axum",
+          "version": "0.8+",
+          "type": "Tokio-native web framework",
+          "pros": [
+            "Best memory efficiency in Rust",
+            "Type-safe routing",
+            "Modern and ergonomic",
+            "22k+ GitHub stars",
+            "Great with Tokio async runtime"
+          ],
+          "cons": [
+            "Requires Tokio knowledge",
+            "More boilerplate than some",
+            "Async complexity"
+          ],
+          "use_cases": [
+            "High-performance APIs",
+            "Microservices",
+            "Real-time systems",
+            "WebSocket servers"
+          ],
+          "performance": "Excellent - Matches Actix, better memory"
+        },
+        "rocket": {
+          "name": "Rocket",
+          "version": "0.5+",
+          "type": "Web framework for Rust",
+          "pros": [
+            "Beginner-friendly (for Rust)",
+            "Type-safe routing",
+            "Intuitive API",
+            "Good documentation",
+            "Built-in features"
+          ],
+          "cons": [
+            "Slower than Axum/Actix",
+            "Historically required nightly",
+            "Smaller community than Actix"
+          ],
+          "use_cases": [
+            "CRUD APIs",
+            "Web services",
+            "Teams with Rust beginners",
+            "Rapid Rust prototyping"
+          ],
+          "performance": "Good - Not as fast as Actix but easier"
+        },
+        "actix-web": {
+          "name": "Actix Web",
+          "version": "4.x",
+          "type": "Actor-based web framework",
+          "pros": [
+            "Fastest Rust framework",
+            "Actor model for concurrency",
+            "WebSocket support",
+            "Mature ecosystem",
+            "Highly concurrent"
+          ],
+          "cons": [
+            "Complex API",
+            "Actor model learning curve",
+            "Poor standby memory usage",
+            "Steeper than Axum/Rocket"
+          ],
+          "use_cases": [
+            "Ultra high-performance",
+            "WebSocket applications",
+            "Complex concurrent systems"
+          ],
+          "performance": "Excellent - ~80k req/s, fastest overall"
+        }
+      }
+    }
+  },
+  "databases": {
+    "postgresql": {
+      "name": "PostgreSQL",
+      "version": "16.x",
+      "type": "SQL",
+      "description": "Advanced open-source relational database",
+      "pros": [
+        "ACID compliance",
+        "Complex queries and joins",
+        "Rich extensions (PostGIS, pg_vector)",
+        "JSON support (JSONB)",
+        "Mature and stable (35+ years)",
+        "Strong data integrity"
+      ],
+      "cons": [
+        "Vertical scaling limitations",
+        "More complex setup than NoSQL",
+        "Steeper learning curve",
+        "Schema migrations required"
+      ],
+      "use_cases": [
+        "Complex relational data",
+        "Financial applications",
+        "ACID requirements",
+        "Data integrity critical",
+        "Complex queries"
+      ],
+      "performance": "Excellent for complex queries",
+      "scalability": "Vertical primarily, horizontal with partitioning"
+    },
+    "mongodb": {
+      "name": "MongoDB",
+      "version": "8.x",
+      "type": "NoSQL Document",
+      "description": "Document-oriented NoSQL database",
+      "pros": [
+        "Flexible schema",
+        "Horizontal scaling (sharding)",
+        "Developer-friendly",
+        "Easy to get started",
+        "Good for rapid iteration",
+        "Rich query language"
+      ],
+      "cons": [
+        "No ACID by default (changed in v4+)",
+        "No complex joins",
+        "Data consistency challenges",
+        "Can lead to schema chaos",
+        "More storage than SQL"
+      ],
+      "use_cases": [
+        "Document storage",
+        "Rapid prototyping",
+        "Real-time applications",
+        "Flexible schema needs",
+        "Content management"
+      ],
+      "performance": "Excellent for document reads/writes",
+      "scalability": "Horizontal (sharding)"
+    },
+    "dynamodb": {
+      "name": "AWS DynamoDB",
+      "version": "N/A",
+      "type": "NoSQL Key-Value/Document",
+      "description": "Fully managed serverless database",
+      "pros": [
+        "Fully managed (no ops)",
+        "Auto-scaling",
+        "Serverless-friendly",
+        "Pay-per-use pricing",
+        "Low latency at scale",
+        "AWS integration"
+      ],
+      "cons": [
+        "AWS vendor lock-in",
+        "Limited query patterns",
+        "Cost can scale unexpectedly",
+        "Learning curve for data modeling",
+        "No cross-table joins"
+      ],
+      "use_cases": [
+        "Serverless applications",
+        "Variable traffic",
+        "AWS-native apps",
+        "Key-value storage",
+        "Gaming leaderboards"
+      ],
+      "performance": "Excellent - Single-digit ms latency",
+      "scalability": "Automatic horizontal"
+    },
+    "firestore": {
+      "name": "Google Firestore",
+      "version": "N/A",
+      "type": "NoSQL Document",
+      "description": "Firebase's NoSQL cloud database",
+      "pros": [
+        "Real-time sync",
+        "Fully managed",
+        "Generous free tier",
+        "Mobile SDK support",
+        "Offline support",
+        "Google Cloud integration"
+      ],
+      "cons": [
+        "GCP vendor lock-in",
+        "Query limitations",
+        "Pricing complexity",
+        "Not for complex queries"
+      ],
+      "use_cases": [
+        "Mobile applications",
+        "Real-time features",
+        "Rapid prototypes",
+        "Firebase ecosystem"
+      ],
+      "performance": "Good - Real-time updates",
+      "scalability": "Automatic"
+    },
+    "redis": {
+      "name": "Redis",
+      "version": "8.x",
+      "type": "In-Memory Key-Value",
+      "description": "In-memory data structure store",
+      "pros": [
+        "Extremely fast (sub-ms)",
+        "Rich data structures",
+        "Pub/sub support",
+        "Caching layer",
+        "Session storage",
+        "Queue capabilities"
+      ],
+      "cons": [
+        "In-memory (cost at scale)",
+        "Persistence options limited",
+        "Not for primary storage",
+        "Data size limited by RAM"
+      ],
+      "use_cases": [
+        "Caching",
+        "Session storage",
+        "Real-time analytics",
+        "Message queues",
+        "Leaderboards"
+      ],
+      "performance": "Excellent - Sub-millisecond",
+      "scalability": "Horizontal (Redis Cluster)"
+    }
+  },
+  "frontend": {
+    "react": {
+      "name": "React",
+      "version": "19.x",
+      "type": "UI Library",
+      "description": "Facebook's declarative UI library",
+      "pros": [
+        "Huge ecosystem and community",
+        "Component-based architecture",
+        "Virtual DOM performance",
+        "Great developer experience",
+        "Massive job market"
+      ],
+      "cons": [
+        "Just a library (need router, state, etc)",
+        "Frequent ecosystem changes",
+        "JSX learning curve",
+        "Tooling complexity"
+      ]
+    },
+    "nextjs": {
+      "name": "Next.js",
+      "version": "15.x",
+      "type": "React Framework",
+      "description": "Full-stack React framework by Vercel",
+      "framework_type": "Full-stack",
+      "rendering": ["SSR", "SSG", "ISR", "CSR"],
+      "pros": [
+        "Full-stack React capabilities",
+        "Excellent SEO",
+        "Great developer experience",
+        "Vercel deployment",
+        "API routes built-in"
+      ],
+      "cons": [
+        "Learning curve",
+        "Opinionated",
+        "Vendor concerns"
+      ]
+    },
+    "remix": {
+      "name": "Remix",
+      "version": "2.x",
+      "type": "React Framework",
+      "description": "Full-stack React framework focused on web standards",
+      "framework_type": "Full-stack",
+      "rendering": ["SSR"],
+      "pros": [
+        "Nested routing",
+        "Progressive enhancement",
+        "Great data loading",
+        "Web standards focus",
+        "Excellent forms"
+      ],
+      "cons": [
+        "Newer ecosystem",
+        "Different mental model",
+        "Smaller community"
+      ]
+    },
+    "vite": {
+      "name": "Vite + React",
+      "version": "Vite 5.x + React 19.x",
+      "type": "Build Tool + Library",
+      "description": "Lightning-fast build tool with React",
+      "framework_type": "SPA",
+      "rendering": ["CSR"],
+      "pros": [
+        "Lightning fast dev server",
+        "Simple SPA architecture",
+        "Flexible structure",
+        "Minimal configuration"
+      ],
+      "cons": [
+        "No SSR out of box",
+        "Need separate backend",
+        "Manual routing setup"
+      ]
+    }
+  },
+  "orm": {
+    "prisma": {
+      "name": "Prisma",
+      "languages": ["TypeScript", "JavaScript"],
+      "databases": ["PostgreSQL", "MySQL", "SQLite", "MongoDB", "SQL Server"],
+      "pros": [
+        "Type-safe queries",
+        "Great DX",
+        "Visual Studio Code integration",
+        "Migrations",
+        "Prisma Studio"
+      ],
+      "cons": [
+        "Performance overhead",
+        "Opinionated",
+        "Bundle size"
+      ]
+    },
+    "typeorm": {
+      "name": "TypeORM",
+      "languages": ["TypeScript", "JavaScript"],
+      "databases": ["PostgreSQL", "MySQL", "SQLite", "MongoDB", "SQL Server"],
+      "pros": [
+        "Active Record and Data Mapper",
+        "Decorators",
+        "Migrations",
+        "Multiple databases"
+      ],
+      "cons": [
+        "Complex API",
+        "Documentation gaps",
+        "Performance issues"
+      ]
+    },
+    "drizzle": {
+      "name": "Drizzle ORM",
+      "languages": ["TypeScript", "JavaScript"],
+      "databases": ["PostgreSQL", "MySQL", "SQLite"],
+      "pros": [
+        "Lightweight and fast",
+        "SQL-like syntax",
+        "Type-safe",
+        "No caching issues"
+      ],
+      "cons": [
+        "Newer (less mature)",
+        "Smaller community",
+        "Fewer features"
+      ]
+    },
+    "gorm": {
+      "name": "GORM",
+      "languages": ["Go"],
+      "databases": ["PostgreSQL", "MySQL", "SQLite", "SQL Server"],
+      "pros": [
+        "Full-featured ORM",
+        "Associations",
+        "Hooks",
+        "Transactions"
+      ],
+      "cons": [
+        "Reflection overhead",
+        "Magic behavior",
+        "Performance vs raw SQL"
+      ]
+    },
+    "sqlalchemy": {
+      "name": "SQLAlchemy",
+      "languages": ["Python"],
+      "databases": ["PostgreSQL", "MySQL", "SQLite", "Oracle", "SQL Server"],
+      "pros": [
+        "Most popular Python ORM",
+        "Flexible architecture",
+        "Core and ORM layers",
+        "Great documentation"
+      ],
+      "cons": [
+        "Complex for beginners",
+        "Verbose queries",
+        "Learning curve"
+      ]
+    }
+  }
+}
