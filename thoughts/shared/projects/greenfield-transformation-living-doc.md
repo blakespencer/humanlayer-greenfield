@@ -20,24 +20,24 @@
 
 ### **Immediate Next Steps**
 1. [ ] **Create greenfield-tech-evaluator.md agent** (~30-40 min)
-   - File: `.claude/agents/greenfield-tech-evaluator.md`
-   - Reference: Implementation plan lines 53-105
+   - File: `/Users/blakespencer/projects/humanlayer-greenfield/.claude/agents/greenfield-tech-evaluator.md`
+   - Reference: `/Users/blakespencer/projects/humanlayer-greenfield/thoughts/shared/plans/2025-10-24-greenfield-mvp-transformation.md` (lines 53-105)
    - Include 2025 framework knowledge (TypeScript, Go, Python, Rust)
    - Add interactive tech selection with React frontend + backend choice
    - Database selection independent of language
 
 2. [ ] **Create greenfield-requirements-decomposer.md agent** (~30 min)
-   - File: `.claude/agents/greenfield-requirements-decomposer.md`
-   - Reference: Implementation plan lines 107-159
+   - File: `/Users/blakespencer/projects/humanlayer-greenfield/.claude/agents/greenfield-requirements-decomposer.md`
+   - Reference: `/Users/blakespencer/projects/humanlayer-greenfield/thoughts/shared/plans/2025-10-24-greenfield-mvp-transformation.md` (lines 107-159)
    - Focus on hybrid structured/free-form requirements
 
 3. [ ] **Continue with remaining 6 agents from Phase 1**
-   - architecture-designer
-   - api-designer
-   - scaffolder
-   - data-model-designer
-   - test-strategy-planner
-   - deployment-planner
+   - `/Users/blakespencer/projects/humanlayer-greenfield/.claude/agents/greenfield-architecture-designer.md`
+   - `/Users/blakespencer/projects/humanlayer-greenfield/.claude/agents/greenfield-api-designer.md`
+   - `/Users/blakespencer/projects/humanlayer-greenfield/.claude/agents/greenfield-scaffolder.md`
+   - `/Users/blakespencer/projects/humanlayer-greenfield/.claude/agents/greenfield-data-model-designer.md`
+   - `/Users/blakespencer/projects/humanlayer-greenfield/.claude/agents/greenfield-test-strategy-planner.md`
+   - `/Users/blakespencer/projects/humanlayer-greenfield/.claude/agents/greenfield-deployment-planner.md`
 
 ### **Blockers/Decisions Needed**
 - None currently - path is clear from implementation plan
@@ -235,12 +235,13 @@ Key sections:
 
 #### Files Created This Session 📁
 ```
-thoughts/shared/plans/2025-10-24-greenfield-mvp-transformation.md    [+1548 lines]
-thoughts/shared/templates/greenfield-living-document.md               [+350 lines]
-.claude/commands/start_greenfield.md                                  [+150 lines]
-.claude/commands/continue_greenfield.md                               [+250 lines]
-.claude/commands/handoff_greenfield.md                                [+350 lines]
-thoughts/shared/projects/greenfield-transformation-living-doc.md      [+THIS FILE]
+/Users/blakespencer/projects/humanlayer-greenfield/thoughts/shared/plans/2025-10-24-greenfield-mvp-transformation.md    [+1548 lines]
+/Users/blakespencer/projects/humanlayer-greenfield/thoughts/shared/templates/greenfield-living-document.md               [+350 lines]
+/Users/blakespencer/projects/humanlayer-greenfield/.claude/commands/start_greenfield.md                                  [+150 lines]
+/Users/blakespencer/projects/humanlayer-greenfield/.claude/commands/continue_greenfield.md                               [+250 lines]
+/Users/blakespencer/projects/humanlayer-greenfield/.claude/commands/handoff_greenfield.md                                [+350 lines]
+/Users/blakespencer/projects/humanlayer-greenfield/thoughts/shared/projects/greenfield-transformation-living-doc.md      [+THIS FILE]
+/Users/blakespencer/projects/humanlayer-greenfield/NEXT_AGENT_START_HERE.md                                              [+18 lines]
 ```
 
 #### Technical Debt Noted 💳
@@ -337,6 +338,13 @@ Start Phase 1 by creating the 8 greenfield agents. Each agent is defined in deta
 ---
 
 ## 🚨 Important Conventions
+
+### **File Path References**
+- **ALWAYS use absolute paths** in this living document
+- Example: `/Users/blakespencer/projects/humanlayer-greenfield/.claude/agents/greenfield-tech-evaluator.md`
+- NOT: `.claude/agents/greenfield-tech-evaluator.md`
+- Why: Agents can copy-paste commands directly without path confusion
+- When updating this doc: Convert all relative paths to absolute paths
 
 ### **File Naming**
 - Agents: kebab-case with greenfield- prefix (greenfield-tech-evaluator.md)
@@ -448,14 +456,14 @@ model: sonnet
 ```bash
 cd /Users/blakespencer/projects/humanlayer-greenfield
 
-# Read living doc
-cat thoughts/shared/projects/greenfield-transformation-living-doc.md
+# Read living doc (CRITICAL - READ FIRST!)
+cat /Users/blakespencer/projects/humanlayer-greenfield/thoughts/shared/projects/greenfield-transformation-living-doc.md
 
 # Read implementation plan Phase 1
-cat thoughts/shared/plans/2025-10-24-greenfield-mvp-transformation.md | head -n 517
+cat /Users/blakespencer/projects/humanlayer-greenfield/thoughts/shared/plans/2025-10-24-greenfield-mvp-transformation.md | head -n 517
 
-# Create first agent
-# (use Write tool to create .claude/agents/greenfield-tech-evaluator.md)
+# Create first agent (use Write tool)
+# Target: /Users/blakespencer/projects/humanlayer-greenfield/.claude/agents/greenfield-tech-evaluator.md
 ```
 
 ### **Success Criteria for Next Session**
