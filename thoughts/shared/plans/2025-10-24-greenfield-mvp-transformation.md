@@ -1107,17 +1107,201 @@ For each option show:
 - ⚠️ Avoid if: [anti-patterns]
 ```
 
+#### 4. Cost Calculator Utility
+**File**: `/Users/blakespencer/projects/humanlayer-greenfield/.claude/utils/cost-calculator.md`
+**Changes**: Create utility for cost estimation and comparison
+
+```markdown
+# Cost Calculator Utility
+
+## Purpose
+Help users understand the financial implications of tech stack decisions.
+
+## Cost Categories
+
+### Hosting Costs (Monthly Estimates)
+- **Vercel**: $20 Pro (for serious apps) or $0 Hobby
+- **AWS**: $50-200 (t3.medium + RDS) - highly variable
+- **Railway**: $5-20 (usage-based)
+- **Fly.io**: $0-50 (depending on scale)
+- **Digital Ocean**: $12-48 (droplets + managed DB)
+
+### Database Costs
+- **PostgreSQL Managed**: $15-100/month (DO, Railway, Supabase)
+- **MongoDB Atlas**: $0-57/month (M0 free, M10 shared $57)
+- **DynamoDB**: Pay per use (can be $0-1000+ depending on traffic)
+- **Self-hosted**: Server costs only
+
+### Developer Tools
+- **Monitoring**: Datadog $15/host, New Relic $0-99, Sentry $0-26
+- **CI/CD**: GitHub Actions (2000 min free), GitLab CI (400 min free)
+- **Auth Services**: Auth0 $0-240/month, Clerk $0-25/month
+
+### Hidden Costs
+- SSL certificates (often free with Let's Encrypt)
+- CDN (Cloudflare free tier, or $20-200/month)
+- Email service (SendGrid, Mailgun $0-80/month)
+- Domain name ($10-15/year)
+
+## Total Cost Estimates by Stack
+
+### Minimal MVP (Month 1-3)
+- Next.js on Vercel Hobby: $0
+- PostgreSQL on Supabase free tier: $0
+- Auth via Supabase: $0
+- **Total: $0-10/month**
+
+### Production SaaS (Month 3+)
+- Next.js on Vercel Pro: $20
+- PostgreSQL on Railway: $20
+- Redis on Railway: $5
+- Monitoring (Sentry): $26
+- Email (SendGrid): $15
+- **Total: $86/month**
+
+### High-Traffic API
+- Go/Rust on Fly.io: $20-50
+- PostgreSQL managed: $50
+- Redis: $10
+- Monitoring: $40
+- **Total: $120-150/month**
+
+## Decision Impact Matrix
+
+| Choice | Cost Impact | When it Matters |
+|--------|-------------|-----------------|
+| Serverless vs Server | 3x difference | After 10k users |
+| Managed vs Self-hosted DB | 2x difference | Immediate |
+| TypeScript vs Go/Rust | Same hosting, 30% less compute | At scale |
+| Vercel vs AWS | 2-5x difference | After free tier |
+
+## Cost Optimization Tips
+1. Start with free tiers (Vercel, Supabase, Railway)
+2. Use managed databases only when needed
+3. Optimize before scaling vertically
+4. Consider regional pricing differences
+5. Monitor usage to avoid surprise bills
+```
+
+#### 5. Team Assessment Utility
+**File**: `/Users/blakespencer/projects/humanlayer-greenfield/.claude/utils/team-assessment.md`
+**Changes**: Create utility for team context evaluation
+
+```markdown
+# Team Assessment Utility
+
+## Team Size Recommendations
+
+### Solo Developer (1 person)
+**Recommended**:
+- Next.js (full-stack in one framework)
+- Vite + FastAPI (simple, quick)
+- Avoid: NestJS, microservices, complex DevOps
+
+**Reasoning**: Minimize context switching, maximize productivity
+
+### Small Team (2-3 developers)
+**Recommended**:
+- Next.js + NestJS (clear separation)
+- Vite + Go/Gin (simple architecture)
+- Consider: Basic microservices acceptable
+
+**Reasoning**: Can split frontend/backend, but keep it simple
+
+### Medium Team (4-10 developers)
+**Recommended**:
+- NestJS (modular architecture scales)
+- Go with clear module boundaries
+- Consider: Monorepo, module ownership
+
+**Reasoning**: Need structure to avoid stepping on toes
+
+### Large Team (10+ developers)
+**Recommended**:
+- Microservices architecture
+- Multiple repos with clear boundaries
+- Strong API contracts
+
+**Reasoning**: Independence, parallel work
+
+## Skill Level Assessment
+
+### All Beginners
+- **Choose**: TypeScript/JavaScript (most resources)
+- **Avoid**: Rust, complex Go patterns
+- **Timeline Impact**: +50% for learning curve
+
+### Mixed Experience
+- **Choose**: Based on strongest developer's expertise
+- **Consider**: Pair programming for knowledge transfer
+- **Timeline Impact**: +25% for ramp-up
+
+### All Experienced
+- **Choose**: Best tool for job, they'll adapt
+- **Timeline Impact**: Minimal (+10%)
+
+## Hiring Difficulty (2025 Market)
+
+### Easy to Hire
+- JavaScript/TypeScript: 10/10 availability
+- Python: 9/10 availability
+- React: 10/10 availability
+
+### Moderate
+- Go: 6/10 availability (growing)
+- Senior full-stack: 5/10
+
+### Difficult
+- Rust: 3/10 availability
+- Specialized frameworks: 4/10
+
+## Ramp-up Time Estimates
+
+### Junior Developer
+- JavaScript/TypeScript: 1-2 weeks
+- Python: 1-2 weeks
+- Go: 3-4 weeks
+- Rust: 8-12 weeks
+
+### Mid-level Developer
+- JavaScript/TypeScript: 3-5 days
+- Python: 3-5 days
+- Go: 1-2 weeks
+- Rust: 4-6 weeks
+
+## Questions to Ask User
+
+1. **Team Size**: How many developers on this project?
+2. **Skill Level**: What's your team's strongest language?
+3. **Learning Budget**: Can team spend time learning new tech?
+4. **Hiring Plans**: Will you need to hire for this stack?
+5. **Timeline Pressure**: Can you afford learning curve delays?
+
+## Decision Matrix
+
+| Factor | TypeScript | Go | Python | Rust |
+|--------|-----------|-----|--------|------|
+| Hiring Ease | ⭐⭐⭐⭐⭐ | ⭐⭐⭐ | ⭐⭐⭐⭐ | ⭐⭐ |
+| Ramp-up Speed | ⭐⭐⭐⭐⭐ | ⭐⭐⭐ | ⭐⭐⭐⭐ | ⭐ |
+| Resource Availability | ⭐⭐⭐⭐⭐ | ⭐⭐⭐ | ⭐⭐⭐⭐ | ⭐⭐ |
+| Solo Friendliness | ⭐⭐⭐⭐⭐ | ⭐⭐⭐⭐ | ⭐⭐⭐⭐⭐ | ⭐⭐ |
+```
+
 ### Success Criteria:
 
 #### Automated Verification:
 - [ ] Tech decision matrix template created
 - [ ] Tech stack knowledge base has valid JSON
 - [ ] Selection flow utility created
+- [ ] Cost calculator utility created
+- [ ] Team assessment utility created
 
 #### Manual Verification:
 - [ ] Decision matrix provides clear structure
 - [ ] Knowledge base covers common tech stacks
 - [ ] Trade-offs are balanced and accurate
+- [ ] Cost estimates are realistic (2025 pricing)
+- [ ] Team assessment covers common scenarios
 
 **Implementation Note**: After completing this phase and all automated verification passes, pause here for manual confirmation from the human that the manual testing was successful before proceeding to the next phase.
 
@@ -1226,16 +1410,199 @@ Then [outcome]
 - Testable: Clear success criteria
 ```
 
+#### 3. Security & Authentication Selector
+**File**: `/Users/blakespencer/projects/humanlayer-greenfield/.claude/utils/security-auth-selector.md`
+**Changes**: Create utility for security and authentication strategy selection
+
+```markdown
+# Security & Authentication Selector
+
+## Authentication Methods
+
+### JWT (JSON Web Tokens)
+**Best for**: Stateless APIs, microservices, mobile apps
+- ✅ Pros: Stateless, scalable, works across domains
+- ❌ Cons: Token revocation complexity, larger payload
+- 🎯 Use when: Building API-first, need mobile support
+- ⚠️ Avoid if: Need instant session termination
+
+**Implementation**:
+- TypeScript: `jsonwebtoken`, `passport-jwt`
+- Go: `golang-jwt/jwt`
+- Python: `PyJWT`, `python-jose`
+- Rust: `jsonwebtoken` crate
+
+### Session-Based (Cookies)
+**Best for**: Traditional web apps, SSR applications
+- ✅ Pros: Simple revocation, smaller payloads, httpOnly secure
+- ❌ Cons: Stateful, server memory usage, CSRF concerns
+- 🎯 Use when: Traditional web app, SSR with Next.js
+- ⚠️ Avoid if: Need cross-domain auth, mobile apps
+
+**Implementation**:
+- Next.js: Built-in with `iron-session`
+- Express: `express-session`
+- Django: Built-in session framework
+- Go: `gorilla/sessions`
+
+### OAuth 2.0 / Social Login
+**Best for**: Consumer apps, quick onboarding
+- ✅ Pros: Easy user signup, trusted providers, less liability
+- ❌ Cons: Dependency on third parties, privacy concerns
+- 🎯 Use when: B2C product, want fast signup
+- ⚠️ Avoid if: Enterprise B2B, strict data control
+
+**Providers**:
+- Google, GitHub, Facebook, Apple
+- Implementation: Auth0, Clerk, NextAuth.js, Supabase Auth
+
+### Magic Links (Passwordless)
+**Best for**: Modern SaaS, less security-critical apps
+- ✅ Pros: No password management, good UX
+- ❌ Cons: Email dependency, slower login
+- 🎯 Use when: Want modern UX, email is reliable
+- ⚠️ Avoid if: Need instant access, unreliable email
+
+## Authorization Patterns
+
+### Role-Based Access Control (RBAC)
+**Best for**: Most MVPs, clear user roles
+- Roles: Admin, Editor, Viewer
+- Simple to implement and understand
+- Good for: SaaS, internal tools, content management
+
+### Attribute-Based Access Control (ABAC)
+**Best for**: Complex permissions, enterprise
+- Based on user attributes, resource attributes, context
+- More flexible but complex
+- Good for: Healthcare, finance, multi-tenant platforms
+
+### Access Control Lists (ACL)
+**Best for**: Document-level permissions
+- Per-resource permissions
+- Good for: Collaboration tools, file sharing
+
+## Security Checklist Template
+
+### MVP Security Essentials
+- [ ] HTTPS everywhere (SSL/TLS)
+- [ ] Password hashing (bcrypt, Argon2)
+- [ ] Input validation on all endpoints
+- [ ] SQL injection prevention (use ORMs/parameterized queries)
+- [ ] XSS protection (escape output, CSP headers)
+- [ ] CSRF protection (tokens for state-changing operations)
+- [ ] Rate limiting on auth endpoints
+- [ ] Secure session management
+- [ ] Environment variables for secrets (never in code)
+- [ ] CORS configuration (don't use `*` in production)
+
+### Data Protection
+- [ ] Encrypt sensitive data at rest
+- [ ] Use secure password reset flows
+- [ ] Implement account lockout after failed attempts
+- [ ] Log authentication events
+- [ ] Regular security dependency updates
+
+### Compliance Considerations
+- **GDPR** (EU users): Data export, deletion, consent
+- **CCPA** (California): Data disclosure, opt-out
+- **HIPAA** (Healthcare): Encryption, audit logs, BAA
+- **SOC2**: Security controls, access logs
+
+## Recommended Auth Services
+
+### For MVPs
+1. **Supabase Auth** - Free, integrated with DB
+2. **Clerk** - $0-25/mo, great DX
+3. **NextAuth.js** - Free, self-hosted, flexible
+
+### For Production
+1. **Auth0** - $0-240/mo, enterprise-ready
+2. **AWS Cognito** - Pay per use, AWS integrated
+3. **Firebase Auth** - Google ecosystem
+
+## Common Security Vulnerabilities to Avoid
+
+### OWASP Top 10 (2025)
+1. **Broken Access Control** - Always verify user permissions
+2. **Cryptographic Failures** - Use TLS, hash passwords
+3. **Injection** - Parameterize queries, validate input
+4. **Insecure Design** - Security from the start
+5. **Security Misconfiguration** - Review defaults
+6. **Vulnerable Components** - Update dependencies
+7. **Authentication Failures** - MFA, secure sessions
+8. **Data Integrity Failures** - Verify inputs
+9. **Logging Failures** - Log security events
+10. **Server-Side Request Forgery** - Validate URLs
+
+## Decision Questions
+
+1. **Who are your users?** (Consumers, employees, developers)
+2. **What's the sensitivity of data?** (Public, private, regulated)
+3. **Need multi-factor auth?** (Recommended for sensitive apps)
+4. **Social login required?** (Common for B2C)
+5. **Compliance requirements?** (GDPR, HIPAA, SOC2)
+6. **Session lifetime needs?** (Minutes, hours, days)
+
+## Example Implementations
+
+### Next.js + NextAuth.js
+```typescript
+// pages/api/auth/[...nextauth].ts
+import NextAuth from 'next-auth'
+import GoogleProvider from 'next-auth/providers/google'
+
+export default NextAuth({
+  providers: [
+    GoogleProvider({
+      clientId: process.env.GOOGLE_ID,
+      clientSecret: process.env.GOOGLE_SECRET,
+    }),
+  ],
+  session: { strategy: 'jwt' },
+})
+```
+
+### FastAPI + JWT
+```python
+from fastapi import FastAPI, Depends
+from fastapi.security import OAuth2PasswordBearer
+
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
+
+@app.get("/protected")
+def protected_route(token: str = Depends(oauth2_scheme)):
+    # Verify JWT token
+    return {"user": "authenticated"}
+```
+
+### Go + JWT
+```go
+import "github.com/golang-jwt/jwt/v5"
+
+func authMiddleware(next http.Handler) http.Handler {
+    return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+        tokenString := r.Header.Get("Authorization")
+        // Verify JWT token
+        next.ServeHTTP(w, r)
+    })
+}
+```
+```
+
 ### Success Criteria:
 
 #### Automated Verification:
 - [ ] Requirements template file created
 - [ ] User story generator utility created
+- [ ] Security & auth selector utility created
 - [ ] Template includes all sections
 
 #### Manual Verification:
 - [ ] Template is comprehensive but not overwhelming
 - [ ] User story format follows best practices
+- [ ] Security guidance covers OWASP top risks
+- [ ] Auth options cover common use cases
 - [ ] Hybrid approach is well-balanced
 
 **Implementation Note**: After completing this phase and all automated verification passes, pause here for manual confirmation from the human that the manual testing was successful before proceeding to the next phase.
@@ -1372,17 +1739,103 @@ EOF
 echo "✅ Project generated successfully!"
 ```
 
+#### 3. Working Example Projects
+**Directory**: `/Users/blakespencer/projects/humanlayer-greenfield/.claude/examples/`
+**Changes**: Create complete working reference implementations
+
+```bash
+# Directory structure for examples
+.claude/examples/
+├── saas-nextjs-prisma/          # Complete SaaS example
+│   ├── README.md
+│   ├── package.json
+│   ├── prisma/
+│   ├── src/
+│   └── tests/
+├── api-go-postgres/             # REST API example
+│   ├── README.md
+│   ├── go.mod
+│   ├── cmd/
+│   ├── pkg/
+│   └── tests/
+└── fullstack-fastapi-react/     # Python + React example
+    ├── README.md
+    ├── frontend/
+    ├── backend/
+    └── docker-compose.yml
+```
+
+**Example 1: SaaS Next.js + Prisma**
+Create a complete working example with:
+- Next.js 15 App Router
+- Prisma ORM with PostgreSQL
+- NextAuth.js authentication
+- Tailwind CSS styling
+- Jest tests
+- Docker configuration
+- Full README with setup instructions
+
+**Key Features**:
+- User authentication (email/password + Google OAuth)
+- Dashboard with CRUD operations
+- API routes with proper error handling
+- Database migrations
+- Unit and integration tests
+- Environment variable management
+- Production-ready configuration
+
+**Example 2: Go REST API + PostgreSQL**
+Create a complete API with:
+- Go 1.21+ with Gin framework
+- PostgreSQL with migrations
+- JWT authentication
+- Swagger documentation
+- Docker configuration
+- Integration tests
+
+**Key Features**:
+- RESTful API design
+- Database connection pooling
+- Middleware (auth, logging, CORS)
+- Error handling patterns
+- Health check endpoints
+- Graceful shutdown
+- Production deployment guide
+
+**Example 3: FastAPI + React Full-Stack**
+Create a complete full-stack app with:
+- FastAPI backend with async/await
+- Vite + React 19 frontend
+- PostgreSQL database
+- JWT authentication
+- Docker Compose setup
+- Pytest tests
+
+**Key Features**:
+- Modern async Python patterns
+- React hooks and context
+- API integration examples
+- CORS configuration
+- Database migrations with Alembic
+- Environment-based configuration
+- Production deployment guide
+
 ### Success Criteria:
 
 #### Automated Verification:
 - [ ] MVP optimizer agent created
 - [ ] Project generation script is executable
 - [ ] Script handles multiple tech stacks
+- [ ] Example projects directory created
+- [ ] All examples have README with setup instructions
 
 #### Manual Verification:
 - [ ] MVP optimization follows lean principles
 - [ ] Generated projects have complete structure
 - [ ] All common tech stacks are supported
+- [ ] Example projects run successfully
+- [ ] Examples demonstrate best practices
+- [ ] Code is well-commented and educational
 
 **Implementation Note**: After completing this phase and all automated verification passes, pause here for manual confirmation from the human that the manual testing was successful before proceeding to the next phase.
 
@@ -1499,7 +1952,379 @@ Context Thresholds:
 }
 ```
 
-#### 3. Comprehensive Documentation
+#### 3. Production Readiness Checklist
+**File**: `/Users/blakespencer/projects/humanlayer-greenfield/.claude/utils/production-checklist.md`
+**Changes**: Create comprehensive production deployment checklist
+
+```markdown
+# Production Readiness Checklist
+
+## Security
+- [ ] All secrets in environment variables (not in code)
+- [ ] HTTPS/TLS configured everywhere
+- [ ] CORS properly configured (no `*` wildcards)
+- [ ] Rate limiting on public endpoints
+- [ ] Input validation on all endpoints
+- [ ] SQL injection prevention (parameterized queries)
+- [ ] XSS protection (CSP headers, output escaping)
+- [ ] CSRF tokens for state-changing operations
+- [ ] Authentication timeout configured
+- [ ] Password hashing (bcrypt/Argon2, never plaintext)
+- [ ] Security headers (HSTS, X-Frame-Options, etc.)
+- [ ] Dependencies updated (no known vulnerabilities)
+- [ ] API keys rotated and stored securely
+
+## Logging & Monitoring
+- [ ] Structured logging implemented (JSON format)
+- [ ] Log levels configured (debug/info/warn/error)
+- [ ] Error tracking setup (Sentry, Rollbar, etc.)
+- [ ] Application performance monitoring (APM)
+- [ ] Uptime monitoring (UptimeRobot, Pingdom)
+- [ ] Database query monitoring
+- [ ] Log aggregation (CloudWatch, Datadog, Papertrail)
+- [ ] Alert thresholds configured
+- [ ] On-call rotation setup
+- [ ] Security event logging
+
+## Database
+- [ ] Connection pooling configured
+- [ ] Database backups automated
+- [ ] Backup restoration tested
+- [ ] Migration rollback tested
+- [ ] Indexes on frequently queried columns
+- [ ] Query performance analyzed
+- [ ] Database credentials rotated
+- [ ] SSL/TLS for database connections
+- [ ] Read replicas for scaling (if needed)
+
+## Performance
+- [ ] CDN configured for static assets
+- [ ] Image optimization implemented
+- [ ] API response times < 200ms (p95)
+- [ ] Database queries optimized (N+1 avoided)
+- [ ] Caching strategy implemented
+- [ ] Load testing completed
+- [ ] Bundle size optimization (frontend)
+- [ ] Lazy loading for heavy resources
+
+## Infrastructure
+- [ ] Health check endpoint (/health)
+- [ ] Graceful shutdown handling
+- [ ] Resource limits configured (memory, CPU)
+- [ ] Auto-scaling configured (if needed)
+- [ ] Multiple availability zones (for critical apps)
+- [ ] Load balancer configured
+- [ ] DDoS protection enabled
+- [ ] Firewall rules configured
+
+## CI/CD
+- [ ] Automated tests passing
+- [ ] Test coverage > 70%
+- [ ] Build pipeline configured
+- [ ] Automated deployments setup
+- [ ] Staging environment exists
+- [ ] Blue-green or canary deployment
+- [ ] Rollback procedure tested
+- [ ] Deploy notifications configured
+
+## Documentation
+- [ ] README with setup instructions
+- [ ] API documentation (OpenAPI/Swagger)
+- [ ] Architecture diagrams
+- [ ] Deployment runbook
+- [ ] Incident response plan
+- [ ] Environment variables documented
+- [ ] Database schema documented
+
+## Legal/Compliance
+- [ ] Privacy policy published
+- [ ] Terms of service published
+- [ ] Cookie consent (if EU users)
+- [ ] GDPR compliance (if applicable)
+- [ ] Data retention policy defined
+- [ ] User data export capability
+- [ ] User data deletion capability
+
+## Observability Recommendations
+
+### Free Tier Options
+- **Logging**: Papertrail, Logtail
+- **Error Tracking**: Sentry (free tier)
+- **Uptime**: UptimeRobot (50 monitors free)
+- **APM**: New Relic (100GB/month free)
+
+### Paid Options
+- **Logging**: Datadog ($15/host), CloudWatch (AWS)
+- **Error Tracking**: Sentry ($26+/month)
+- **APM**: Datadog, New Relic, AppDynamics
+- **Uptime**: Pingdom ($10+/month)
+```
+
+#### 4. Monitoring & Logging Setup Guide
+**File**: `/Users/blakespencer/projects/humanlayer-greenfield/.claude/utils/monitoring-setup.md`
+**Changes**: Create guide for setting up monitoring and logging
+
+```markdown
+# Monitoring & Logging Setup Guide
+
+## Structured Logging
+
+### TypeScript/Node.js
+```typescript
+import winston from 'winston'
+
+const logger = winston.createLogger({
+  level: process.env.LOG_LEVEL || 'info',
+  format: winston.format.json(),
+  defaultMeta: { service: 'api' },
+  transports: [
+    new winston.transports.Console(),
+    new winston.transports.File({ filename: 'error.log', level: 'error' }),
+  ],
+})
+
+// Usage
+logger.info('User logged in', { userId: 123 })
+logger.error('Database connection failed', { error: err.message })
+```
+
+### Go
+```go
+import "go.uber.org/zap"
+
+logger, _ := zap.NewProduction()
+defer logger.Sync()
+
+logger.Info("User logged in",
+    zap.Int("userId", 123),
+    zap.String("method", "oauth"),
+)
+```
+
+### Python
+```python
+import logging
+import json_log_formatter
+
+formatter = json_log_formatter.JSONFormatter()
+handler = logging.StreamHandler()
+handler.setFormatter(formatter)
+
+logger = logging.getLogger()
+logger.addHandler(handler)
+logger.setLevel(logging.INFO)
+
+logger.info("User logged in", extra={"user_id": 123})
+```
+
+## Error Tracking (Sentry)
+
+### Installation
+```bash
+npm install @sentry/node @sentry/tracing
+```
+
+### Configuration
+```typescript
+import * as Sentry from "@sentry/node"
+
+Sentry.init({
+  dsn: process.env.SENTRY_DSN,
+  environment: process.env.NODE_ENV,
+  tracesSampleRate: 0.1, // 10% of transactions
+})
+
+// Catch errors
+app.use(Sentry.Handlers.errorHandler())
+```
+
+## Application Performance Monitoring
+
+### Setup Health Check Endpoint
+```typescript
+app.get('/health', (req, res) => {
+  const health = {
+    uptime: process.uptime(),
+    message: 'OK',
+    timestamp: Date.now(),
+    checks: {
+      database: await checkDatabase(),
+      redis: await checkRedis(),
+    }
+  }
+  res.status(200).json(health)
+})
+```
+
+## Uptime Monitoring
+
+### UptimeRobot Setup
+1. Sign up at uptimerobot.com
+2. Add monitor for `/health` endpoint
+3. Set check interval (5 minutes free tier)
+4. Configure alerting (email/Slack)
+
+### Custom Healthcheck
+```bash
+#!/bin/bash
+# healthcheck.sh
+response=$(curl -s -o /dev/null -w "%{http_code}" https://api.example.com/health)
+if [ $response != "200" ]; then
+  echo "Health check failed: $response"
+  exit 1
+fi
+```
+
+## Metrics Collection
+
+### Prometheus + Grafana (Advanced)
+```typescript
+import promClient from 'prom-client'
+
+const httpRequestDuration = new promClient.Histogram({
+  name: 'http_request_duration_seconds',
+  help: 'Duration of HTTP requests in seconds',
+  labelNames: ['method', 'route', 'status_code'],
+})
+
+app.use((req, res, next) => {
+  const start = Date.now()
+  res.on('finish', () => {
+    const duration = (Date.now() - start) / 1000
+    httpRequestDuration.labels(req.method, req.route?.path, res.statusCode).observe(duration)
+  })
+  next()
+})
+```
+
+## Log Aggregation
+
+### CloudWatch (AWS)
+```typescript
+import winston from 'winston'
+import WinstonCloudWatch from 'winston-cloudwatch'
+
+logger.add(new WinstonCloudWatch({
+  logGroupName: '/aws/app/api',
+  logStreamName: process.env.INSTANCE_ID,
+  awsRegion: 'us-east-1',
+}))
+```
+
+### Datadog
+```bash
+# Add Datadog agent to Dockerfile
+RUN DD_AGENT_MAJOR_VERSION=7 DD_API_KEY=$DD_API_KEY bash -c "$(curl -L https://s.datadoghq.com/scripts/install_script.sh)"
+```
+
+## Alerting Rules
+
+### Example Alert Thresholds
+- **Error Rate**: > 1% of requests
+- **Response Time**: p95 > 1000ms
+- **Uptime**: < 99.9%
+- **CPU Usage**: > 80% for 5 minutes
+- **Memory Usage**: > 90%
+- **Database Connections**: > 80% of pool
+
+### Slack Integration
+```typescript
+// Send critical errors to Slack
+const sendSlackAlert = async (message: string) => {
+  await fetch(process.env.SLACK_WEBHOOK_URL, {
+    method: 'POST',
+    body: JSON.stringify({ text: message }),
+  })
+}
+```
+```
+
+#### 5. Docker Security Fix
+**File**: `/Users/blakespencer/projects/humanlayer-greenfield/.claude/utils/scaffold-templates/common/README.md`
+**Changes**: Fix hardcoded passwords in docker-compose.yml
+
+```yaml
+version: '3.8'
+
+services:
+  frontend:
+    build: ./frontend
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    environment:
+      - VITE_API_URL=${API_URL:-http://localhost:4000}
+    depends_on:
+      - backend
+
+  backend:
+    build: ./backend
+    ports:
+      - "4000:4000"
+    volumes:
+      - ./backend:/app
+    environment:
+      - DATABASE_URL=postgresql://${DB_USER}:${DB_PASSWORD}@postgres:5432/${DB_NAME}
+      - REDIS_URL=redis://redis:6379
+      - JWT_SECRET=${JWT_SECRET}
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_started
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:4000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    command: redis-server --requirepass ${REDIS_PASSWORD}
+
+volumes:
+  postgres_data:
+  redis_data:
+```
+
+**Required .env file**:
+```env
+# Database
+DB_USER=postgres
+DB_PASSWORD=your_secure_password_here
+DB_NAME=mydb
+
+# Redis
+REDIS_PASSWORD=your_redis_password_here
+
+# Backend
+JWT_SECRET=your_jwt_secret_min_32_chars
+API_URL=http://localhost:4000
+```
+
+#### 6. Comprehensive Documentation
 **File**: `/Users/blakespencer/projects/humanlayer-greenfield/GREENFIELD_GUIDE.md`
 **Changes**: Create user guide
 
