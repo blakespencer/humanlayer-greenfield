@@ -431,13 +431,18 @@ git status
 
 ---
 
-## 🎯 Your Task: Fix Critical Bug Then Proceed to Phase 6C
+## 🎯 Your Task: Fix Bug & Start Phase 6C with Test-First Workflow
 
-**What You Need to Do**:
+**USER DECISIONS** (from Session 15):
+1. ✅ **Test-first workflow APPROVED** - Use for all future phases
+2. ✅ **Don't retrofit Phase 6B** - Start test-first with Phase 6C
+3. ✅ **Fix middleware bug next session** - Do at start of next session
 
-### IMMEDIATE PRIORITY: Fix Middleware Bug 🔴
+---
 
-**Background**: Phase 6B implementation is 95% complete. All features work correctly except for one critical regex bug in the middleware matcher that causes the home page to incorrectly redirect to login.
+### STEP 1: Fix Middleware Bug (5 minutes) 🔴
+
+**Background**: Phase 6B implementation is 95% complete. One critical regex bug in middleware.
 
 **File**: `src/middleware.ts` line 104
 
@@ -449,14 +454,49 @@ git status
 3. Test that home page is accessible without auth
 4. Test that dashboard still requires auth
 5. Rebuild to verify no errors
-6. Commit the fix with message: `fix(middleware): correct matcher pattern to allow public home page`
+6. Commit the fix: `fix(middleware): correct matcher pattern to allow public home page`
 
-### After Bug Fix: Proceed to Phase 6C or User Decision
+**After fix**: Phase 6B is 100% complete ✅
 
-Once the bug is fixed, Phase 6B will be 100% complete. Then:
-- **Option 1**: Ask user if they want to continue to Phase 6C
-- **Option 2**: User may want to manually test the auth system first
-- **Option 3**: User may want to review the 3 minor issues noted in Session 15
+---
+
+### STEP 2: Start Phase 6C with Test-First Workflow (60-90 minutes)
+
+**CRITICAL**: Phase 6C will be the FIRST phase using the new test-first workflow!
+
+**Read These First**:
+1. `.claude/utils/test-first-workflow.md` - Complete methodology
+2. `.claude/utils/baseline-tests.md` - Must-have tests
+3. `.claude/templates/playwright/auth-flow-template.spec.ts` - Example template
+4. `PHASE_6_TEST_FIRST_INTEGRATION.md` - Integration guide
+
+**Phase 6C: Core CRUD + Tests (Test-First Approach)**
+
+#### Workflow Steps:
+1. **Design UX** (15 min)
+   - Create wireframes for dashboard, list view, create/edit pages
+   - Map user journey for CRUD operations
+
+2. **Write E2E Test Descriptions** (15 min) 🆕 **HUMAN REVIEW GATE**
+   - Convert user journey to test descriptions
+   - Include baseline tests
+   - **Present to user for approval** ✋
+
+3. **Implement E2E Tests** (15 min) 🆕
+   - Use Playwright
+   - All tests RED initially
+
+4. **Implement CRUD** (40 min)
+   - API routes
+   - Frontend pages
+   - Make tests GREEN
+
+5. **Verify** (5 min)
+   - All tests pass
+   - Build succeeds
+
+**Expected Context**: 35-45%
+**Test Coverage Target**: All CRUD flows covered by E2E tests
 
 ### Quick Start Commands
 
