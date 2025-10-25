@@ -21,13 +21,66 @@ That living document contains:
 - Phase 5: All 3 deliverables complete ✅ **REVIEWED & VERIFIED**
 - **Phase 6A: UX/Wireframe System complete ✅ (Session 11)**
 - **Phase 6A: VERIFIED COMPLETE ✅ (Session 12)**
-- **Phase 6B: Auth Implementation COMPLETE ✅ (Session 14)**
+- **Phase 6B: Auth Implementation 95% COMPLETE ✅ (Session 14)**
+- **Phase 6B: CODE REVIEWED - 1 BUG FOUND 🔴 (Session 15)**
+
+---
+
+## 🔴 Session 15 Complete! Phase 6B Reviewed - CRITICAL BUG FOUND 🐛
+
+**Status**: Phase 6B is 95% complete - **1 CRITICAL BUG must be fixed before Phase 6C**
+**Context Used**: ~33.9% (67,764 / 200,000 tokens) - Excellent efficiency
+**Time**: ~20 minutes (comprehensive code review)
+**Quality**: ⭐⭐⭐⭐☆ Excellent work with one critical middleware bug
+
+### 🔴 CRITICAL BUG - Must Fix Immediately
+
+**Location**: `src/middleware.ts:104`
+
+**Issue**: Middleware matcher regex incorrectly protects home page `/`
+
+**Current Code (BROKEN)**:
+```typescript
+matcher: ['/((?!api/auth|_next|favicon.ico|login|signup|help|$).*)']
+```
+
+**Problem**: The `$` in the negative lookahead matches empty string, causing the home page to redirect to `/login`.
+
+**Fix Option 1 (Recommended - Explicit)**:
+```typescript
+export const config = {
+  matcher: [
+    '/dashboard/:path*',
+    '/profile/:path*',
+    '/settings/:path*',
+    '/projects/:path*',
+    '/usage/:path*'
+  ]
+}
+```
+
+**Fix Option 2 (Keep regex but fix it)**:
+```typescript
+matcher: ['/((?!api/auth|_next|favicon.ico|login|signup|help|$)(?!^$).*)']
+```
+
+### Testing After Fix
+```bash
+# Home page should be accessible without auth
+curl -I http://localhost:3000/  # Should return 200
+
+# Dashboard should require auth
+curl -I http://localhost:3000/dashboard  # Should redirect to /login
+
+# Build should still succeed
+npm run build
+```
 
 ---
 
 ## 🎯 Session 14 Complete! Phase 6B Finished - 100% Done! 🚀
 
-**Status**: Phase 6B is 100% complete - All 12 deliverables finished!
+**Status**: Phase 6B implementation 100% complete (requires bug fix from Session 15)
 **Context Used**: ~29% (57,143 / 200,000 tokens) - Excellent efficiency
 **Time**: ~20 minutes (final 10% completion)
 **Quality**: ⭐⭐⭐⭐⭐ Production-ready authentication system
@@ -378,41 +431,32 @@ git status
 
 ---
 
-## 🎯 Your Task: Complete Phase 6B - Final 10%
+## 🎯 Your Task: Fix Critical Bug Then Proceed to Phase 6C
 
 **What You Need to Do**:
 
-Only 3 remaining tasks to finish Phase 6B:
+### IMMEDIATE PRIORITY: Fix Middleware Bug 🔴
 
-### Task 1: Create Dashboard Page (Protected Route)
-**File**: `src/app/dashboard/page.tsx`
+**Background**: Phase 6B implementation is 95% complete. All features work correctly except for one critical regex bug in the middleware matcher that causes the home page to incorrectly redirect to login.
 
-Requirements:
-- Use Server Component with session check
-- Show welcome message with user name
-- Display quick stats cards (empty state for now)
-- Include "Getting Started" onboarding section
-- Match the dashboard wireframe from `docs/auth-ux-design.md`
-- Add logout functionality
+**File**: `src/middleware.ts` line 104
 
-### Task 2: Create Navigation Component
-**Files**:
-- `src/components/Navbar.tsx` (user dropdown, logout button)
-- Update `src/app/layout.tsx` to include Navbar
+**Bug Details**: See detailed explanation at top of this document.
 
-Requirements:
-- Show user avatar/name when logged in
-- Dropdown menu: Profile, Settings, Sign Out
-- Mobile-responsive hamburger menu
-- Sign In/Sign Up buttons when not logged in
+**Steps**:
+1. Read the middleware file: `src/middleware.ts`
+2. Replace the matcher config with the recommended fix (Option 1 or 2)
+3. Test that home page is accessible without auth
+4. Test that dashboard still requires auth
+5. Rebuild to verify no errors
+6. Commit the fix with message: `fix(middleware): correct matcher pattern to allow public home page`
 
-### Task 3: Add Route Protection Middleware
-**File**: `src/middleware.ts`
+### After Bug Fix: Proceed to Phase 6C or User Decision
 
-Requirements:
-- Protect `/dashboard` route (redirect to `/login` if not authenticated)
-- Allow public routes: `/`, `/login`, `/signup`, `/api/auth/*`
-- Use NextAuth.js `getToken()` for session check
+Once the bug is fixed, Phase 6B will be 100% complete. Then:
+- **Option 1**: Ask user if they want to continue to Phase 6C
+- **Option 2**: User may want to manually test the auth system first
+- **Option 3**: User may want to review the 3 minor issues noted in Session 15
 
 ### Quick Start Commands
 
@@ -438,17 +482,28 @@ npm run dev
 - ✅ UX design phase complete (DONE)
 - ✅ User can register with email/password (DONE - signup page + API)
 - ✅ User can login (DONE - login page working)
-- [ ] User can logout (TODO - add to dashboard)
-- [ ] Protected routes work with middleware (TODO - create middleware.ts)
+- ✅ User can logout (DONE - navbar sign out button)
+- 🔴 Protected routes work with middleware (**BUG FOUND** - middleware.ts line 104)
 - ✅ Database schema complete (DONE - Prisma schema)
-- [ ] Dashboard matches wireframe (TODO - create dashboard page)
+- ✅ Dashboard matches wireframe (DONE - dashboard page created)
 - ✅ Code is well-commented (DONE - all files have comments)
 - ✅ README complete (DONE - comprehensive setup guide)
+- ✅ Build succeeds (DONE - zero errors)
+- ✅ All routes compile (DONE - 8 routes generated)
 
-**Once Complete**: Report context usage and ask user: "continue 6C" or handoff
+**Status**: 11/12 complete (92%) - Just need middleware bug fix!
+
+**Once Bug Fixed**: Report to user and ask: "continue 6C" or handoff
 
 ---
 
-**Recommendation from Session 13**: Phase 6B is 90% complete. The foundation is solid - UX design, auth system, and documentation are all done. Next agent just needs to add the dashboard page, navigation, and middleware to finish. 🚀
+**Recommendation from Session 15**: Phase 6B is 95% complete and genuinely solid work. Just fix the middleware matcher bug (5-minute fix), then Phase 6B is 100% done! 🚀
+
+**Session 15 Review Summary**:
+- ✅ Comprehensive code review completed
+- ✅ Build verification passed (zero errors)
+- 🔴 1 critical bug found (middleware matcher)
+- ⚠️ 3 minor issues noted (non-blocking)
+- ⭐ Overall quality: 4/5 stars (excellent work)
 
 **CRITICAL**: Phase 6A UX tools were used successfully! (wireframes + journey mapping done first)
