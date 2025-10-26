@@ -1102,6 +1102,74 @@ npx playwright test
 
 ## 🔧 Troubleshooting
 
+### Issue: "Unknown slash command" Error 🔴 CRITICAL
+
+**Symptoms**:
+- Running `/continue_greenfield [project]` returns "Unknown slash command"
+- Other slash commands don't work (`/gather_requirements`, `/select_tech_stack`, etc.)
+- Commands worked in toolkit but not in your project
+
+**Cause**: The `.claude` directory was not copied to your project during initialization.
+
+**Why This Happens**:
+- You used an older version of `/init_mvp` (before Session 24 bug fix)
+- The toolkit was manually set up incorrectly
+- The `.claude` directory was accidentally deleted
+
+**Solution**:
+
+**Option A: Re-create Project (Recommended)**
+```bash
+# 1. Delete the problematic project
+rm -rf ~/projects/your-project
+
+# 2. Return to toolkit repository
+cd ~/projects/humanlayer-greenfield
+
+# 3. Re-run /init_mvp with the fixed version
+/init_mvp
+
+# 4. Follow prompts to recreate project
+# The .claude directory will now be copied automatically!
+```
+
+**Option B: Manual Fix (Quick)**
+```bash
+# Copy .claude from toolkit to your project
+cp -r ~/projects/humanlayer-greenfield/.claude ~/projects/your-project/.claude
+
+# Verify copy succeeded
+ls ~/projects/your-project/.claude/
+# Should show: agents/ commands/ standards/ utils/
+
+# Now commands should work!
+cd ~/projects/your-project
+/continue_greenfield your-project
+```
+
+**Verification**:
+```bash
+# Check .claude directory exists
+ls -la ~/projects/your-project/.claude/
+
+# Check commands exist
+ls ~/projects/your-project/.claude/commands/ | wc -l
+# Should show: 30+ commands
+
+# Check agents exist
+ls ~/projects/your-project/.claude/agents/ | wc -l
+# Should show: 15+ agents
+```
+
+**Prevention**:
+- Always run `/init_mvp` from the `humanlayer-greenfield` toolkit directory
+- Never delete the `.claude` directory from your project
+- Keep toolkit updated: `cd ~/projects/humanlayer-greenfield && git pull`
+
+**Note**: This bug was fixed in Session 24 (2025-10-26). Projects created after this date automatically get the toolkit.
+
+---
+
 ### Issue: "Command not found: /init_mvp"
 
 **Cause**: You're not in a directory with the `.claude/` toolkit, or the command file doesn't exist.
