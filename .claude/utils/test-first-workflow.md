@@ -4,6 +4,12 @@
 
 **Philosophy**: Tests are the specification. Code makes tests pass.
 
+**🔒 MANDATORY**: All tests must follow `.claude/standards/testing-standards.md`:
+- ✅ DRY testing with fixtures and helpers
+- ✅ No vanity tests (every test catches real bugs)
+- ✅ Context engineering for token efficiency
+- ✅ Language-agnostic patterns (TypeScript, Go, Python, Rust)
+
 ---
 
 ## 🎯 Testing Hierarchy (Outside-In)

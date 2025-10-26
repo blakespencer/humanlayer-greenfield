@@ -2,6 +2,23 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## 🔒 Mandatory Standards
+
+**ALL AI agents working in this repository MUST follow these standards**:
+
+### Testing Standards (Universal)
+- **Read first**: `.claude/standards/testing-standards.md`
+- **DRY testing**: Use fixtures and helpers (40%+ token savings)
+- **No vanity tests**: Every test must catch real bugs
+- **Edge cases**: double-submit, whitespace, pagination boundaries
+- **Language-agnostic**: Applies to TypeScript, Go, Python, Rust
+
+When writing ANY tests in this repository:
+1. Create `fixtures/` and `helpers/` directories first
+2. Critically review test list - remove vanity tests
+3. Follow DRY patterns from testing-standards.md
+4. Include mandatory edge cases (see testing-standards.md)
+
 ## Repository Overview
 
 This is a monorepo containing two distinct but interconnected project groups:

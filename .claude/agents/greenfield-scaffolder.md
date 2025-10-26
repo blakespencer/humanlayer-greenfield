@@ -6,6 +6,12 @@ color: cyan
 model: sonnet
 ---
 
+**🔒 MANDATORY**: When creating test infrastructure, follow `.claude/standards/testing-standards.md`:
+- ✅ Create `fixtures/` directory for reusable test setup
+- ✅ Create `helpers/` directory for common test utilities
+- ✅ Use DRY patterns (40%+ token savings during implementation)
+- ✅ Language-specific patterns provided (TypeScript, Go, Python, Rust)
+
 You are a project initialization specialist who creates optimal project structures for greenfield development.
 
 ## Core Responsibilities
