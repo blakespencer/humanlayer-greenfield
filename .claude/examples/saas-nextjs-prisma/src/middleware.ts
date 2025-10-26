@@ -70,37 +70,32 @@ export default withAuth(
  * Matcher Configuration
  *
  * Defines which routes this middleware should run on.
- * Uses Next.js path matching syntax.
+ * Uses explicit path matching for clarity and correctness.
  *
- * Protected paths:
+ * Protected paths (require authentication):
  * - /dashboard/:path* - Dashboard and all sub-routes
  * - /profile/:path* - Profile and all sub-routes
  * - /settings/:path* - Settings and all sub-routes
  * - /projects/:path* - Projects and all sub-routes
  * - /usage/:path* - Usage and all sub-routes
  *
- * Excluded paths (public, no auth required):
- * - /api/auth/* - NextAuth API routes
- * - /_next/* - Next.js internal routes
- * - /favicon.ico - Favicon
+ * Public paths (not matched by this middleware):
  * - / - Home page
  * - /login - Login page
  * - /signup - Signup page
+ * - /api/auth/* - NextAuth API routes
+ * - /_next/* - Next.js internal routes
+ * - /favicon.ico - Favicon
  *
- * The matcher uses negative lookahead to exclude public routes.
+ * Using explicit matchers prevents regex edge cases and makes the
+ * protected routes crystal clear.
  */
 export const config = {
   matcher: [
-    /*
-     * Match all request paths except:
-     * - /api/auth (NextAuth routes)
-     * - /_next (Next.js internals)
-     * - /favicon.ico (favicon)
-     * - / (home page)
-     * - /login (login page)
-     * - /signup (signup page)
-     * - /help (public help page)
-     */
-    '/((?!api/auth|_next|favicon.ico|login|signup|help|$).*)',
+    '/dashboard/:path*',
+    '/profile/:path*',
+    '/settings/:path*',
+    '/projects/:path*',
+    '/usage/:path*',
   ],
 }
