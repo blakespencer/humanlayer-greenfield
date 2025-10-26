@@ -65,25 +65,60 @@ Use **AskUserQuestion** to collect:
 }
 ```
 
-## Step 2: Create Project Structure
+## Step 2: Validate Toolkit Availability
 
-After getting the project name, create the complete structure:
+**CRITICAL**: Before creating project, verify we can access the toolkit:
 
-### Directory Creation
+```bash
+# Store the current directory (toolkit location)
+TOOLKIT_PATH="$(pwd)"
 
-Use **Bash** tool to create all required directories:
+# Verify .claude directory exists (we're in toolkit repo)
+if [ ! -d "$TOOLKIT_PATH/.claude" ]; then
+  echo "❌ Error: .claude directory not found!"
+  echo "You must run /init_mvp from the HumanLayer Greenfield toolkit repository."
+  exit 1
+fi
+
+echo "✅ Toolkit found at: $TOOLKIT_PATH"
+```
+
+## Step 3: Create Project Structure
+
+After getting the project name and validating toolkit:
+
+### Safety Checks
 
 ```bash
 # Define project path based on user choice
 PROJECT_PATH="[from user choice]"
 PROJECT_NAME="[from user input]"
 
+# Check if project directory already exists
+if [ -d "$PROJECT_PATH" ]; then
+  echo "⚠️  Warning: Directory $PROJECT_PATH already exists!"
+  echo "This command will add files to the existing directory."
+  echo "Press Ctrl+C to cancel, or any key to continue..."
+  read -n 1
+fi
+```
+
+### Directory Creation
+
+Use **Bash** tool to create all required directories:
+
+```bash
 # Create project root
 mkdir -p "$PROJECT_PATH"
 cd "$PROJECT_PATH"
 
-# Initialize git
-git init
+# Initialize git (only if not already a git repo)
+if [ ! -d ".git" ]; then
+  git init
+  echo "✅ Git initialized"
+else
+  echo "ℹ️  Git repository already exists, skipping init"
+fi
 
 # Create complete directory structure
 mkdir -p thoughts/shared/plans
@@ -94,6 +129,28 @@ mkdir -p thoughts/decisions
 mkdir -p docs
 mkdir -p src
 mkdir -p tests
+
+echo "✅ Directory structure created"
+```
+
+### Copy Toolkit
+
+**CRITICAL STEP**: Copy the `.claude` toolkit from the source repository:
+
+```bash
+# Copy .claude directory from toolkit
+echo "📦 Copying .claude toolkit..."
+cp -r "$TOOLKIT_PATH/.claude" "$PROJECT_PATH/.claude"
+
+# Verify copy succeeded
+if [ -d "$PROJECT_PATH/.claude" ]; then
+  echo "✅ .claude toolkit copied successfully"
+  echo "   - $(ls "$PROJECT_PATH/.claude/commands" | wc -l | xargs) commands available"
+  echo "   - $(ls "$PROJECT_PATH/.claude/agents" | wc -l | xargs) agents available"
+else
+  echo "❌ Error: Failed to copy .claude directory!"
+  exit 1
+fi
 ```
 
 ### File Creation
@@ -234,7 +291,7 @@ Generated with HumanLayer Greenfield ❤️
 - Ready for requirements gathering
 ```
 
-## Step 3: Initial Git Commit
+## Step 4: Initial Git Commit
 
 Use **Bash** tool:
 
@@ -244,16 +301,25 @@ cd "$PROJECT_PATH"
 git add .
 git commit -m "chore: initialize MVP project with HumanLayer Greenfield toolkit
 
+- Copy .claude/ toolkit (30+ commands, 15+ agents)
 - Create complete directory structure
 - Add thoughts/ for AI working documents
 - Initialize README with project template
 - Add comprehensive .gitignore
 - Create living document for tracking
 
-Ready for requirements gathering phase."
+Ready for requirements gathering phase.
+
+Toolkit copied from: $TOOLKIT_PATH"
 ```
 
-## Step 4: Confirm and Launch Workflow
+**Verify commit includes `.claude`**:
+```bash
+# Should show .claude directory in commit
+git show --name-only --pretty="" HEAD | grep ".claude" | head -5
+```
+
+## Step 5: Confirm and Launch Workflow
 
 After setup is complete, inform the user:
 
@@ -262,7 +328,11 @@ After setup is complete, inform the user:
 
 📍 Location: [PROJECT_PATH]
 📁 Structure:
-   ├── .claude/          ✅ (already present - AI toolkit)
+   ├── .claude/          ✅ (copied from toolkit - 30+ commands, 15+ agents)
+   │   ├── agents/       ✅ (specialized AI agents)
+   │   ├── commands/     ✅ (slash commands like /gather_requirements)
+   │   ├── standards/    ✅ (testing standards, conventions)
+   │   └── utils/        ✅ (templates, helpers)
    ├── thoughts/         ✅ (AI working documents)
    │   ├── shared/
    │   │   ├── plans/
@@ -275,6 +345,11 @@ After setup is complete, inform the user:
    ├── tests/            ✅ (test files - will be created)
    ├── .gitignore        ✅
    └── README.md         ✅
+
+🔧 Toolkit Verification:
+   ✅ Commands: $(ls [PROJECT_PATH]/.claude/commands | wc -l) available
+   ✅ Agents: $(ls [PROJECT_PATH]/.claude/agents | wc -l) available
+   ✅ All slash commands functional
 
 🎯 Next Steps:
 
@@ -289,7 +364,7 @@ I can now guide you through the complete MVP development workflow:
 Would you like me to start with requirements gathering now?
 ```
 
-## Step 5: Ask to Continue
+## Step 6: Ask to Continue
 
 Use **AskUserQuestion**:
 
@@ -315,7 +390,7 @@ Use **AskUserQuestion**:
 }
 ```
 
-## Step 6: Launch Automated Workflow (Optional)
+## Step 7: Launch Automated Workflow (Optional)
 
 If user chooses "Yes", run the greenfield workflow commands in sequence:
 
@@ -390,25 +465,58 @@ Would you like me to start implementing Phase 1 now?
 
 ## Important Notes
 
+### Toolkit Copy (CRITICAL)
+
+**The `.claude` directory MUST be copied to new projects**:
+- Contains all slash commands (e.g., `/gather_requirements`, `/continue_greenfield`)
+- Contains all specialized agents (e.g., `greenfield-tech-evaluator`)
+- Contains standards and templates
+- **Without it**: No commands work, project is unusable
+- **Size**: ~2-3MB (safe to copy)
+
+**Implementation**:
+```bash
+# MUST run from toolkit repo
+TOOLKIT_PATH="$(pwd)"
+
+# MUST verify .claude exists before proceeding
+if [ ! -d "$TOOLKIT_PATH/.claude" ]; then
+  echo "Error: Must run from toolkit repository!"
+  exit 1
+fi
+
+# MUST copy after creating project directory
+cp -r "$TOOLKIT_PATH/.claude" "$PROJECT_PATH/.claude"
+
+# MUST verify copy succeeded
+if [ ! -d "$PROJECT_PATH/.claude" ]; then
+  echo "Error: Toolkit copy failed!"
+  exit 1
+fi
+```
+
 ### Error Handling
 
 If any step fails:
 1. Report the error clearly
 2. Show what was completed successfully
 3. Provide manual recovery steps
-4. Don't leave project in broken state
+4. **Don't leave project in broken state**
+5. **Verify toolkit copied** before claiming success
 
 ### Directory Safety
 
 - **Always check** if directory already exists
-- **Ask before overwriting** any existing files
+- **Warn user** if directory exists (don't silently overwrite)
 - **Validate paths** before creating directories
+- **Check for .git** before running git init
 
 ### Git Safety
 
 - Only initialize git if not already a git repo
 - Don't commit until structure is complete
 - Provide clear commit messages
+- Include toolkit copy in initial commit
 
 ## Example Usage
 
@@ -444,12 +552,23 @@ AI: [Runs /gather_requirements and continues workflow...]
 
 ## Success Criteria
 
+**MUST HAVE** (Project unusable without these):
+- ✅ Running from toolkit repository (`.claude` exists in CWD)
 - ✅ Project directory created with correct structure
+- ✅ **`.claude` directory copied and verified** ⭐ CRITICAL
 - ✅ Git initialized with clean history
-- ✅ All required directories present
-- ✅ Initial files created (.gitignore, README, living doc)
-- ✅ User knows next steps
-- ✅ Optional: Workflow commands run automatically
+- ✅ All required directories present (`thoughts/`, `docs/`, etc.)
+- ✅ Initial files created (`.gitignore`, `README.md`, living doc)
+
+**SHOULD HAVE** (Best practices):
+- ✅ Directory existence checked before creating
+- ✅ Git repo checked before running `git init`
+- ✅ Toolkit copy verified with command/agent count
+- ✅ User knows exact next steps
+- ✅ Initial commit completed
+
+**OPTIONAL** (User preference):
+- ⭕ Workflow commands run automatically (`/gather_requirements`, etc.)
 
 ## Benefits
 
