@@ -18,7 +18,44 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+    networks:
+      - app-network
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: saas-nextjs-prisma-app
+    restart: unless-stopped
+    ports:
+      - '3000:3000'
+    environment:
+      # Database connection
+      DATABASE_URL: postgresql://postgres:password@postgres:5432/saas_app
+      # NextAuth.js configuration
+      NEXTAUTH_SECRET: ${NEXTAUTH_SECRET:-your-secret-key-change-in-production}
+      NEXTAUTH_URL: ${NEXTAUTH_URL:-http://localhost:3000}
+      # Optional: Google OAuth (uncomment and set in .env to use)
+      # GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID}
+      # GOOGLE_CLIENT_SECRET: ${GOOGLE_CLIENT_SECRET}
+      # Node environment
+      NODE_ENV: production
+    depends_on:
+      postgres:
+        condition: service_healthy
+    healthcheck:
+      test: ['CMD', 'node', '-e', "require('http').get('http://localhost:3000/api/health', (r) => {process.exit(r.statusCode === 200 ? 0 : 1)})"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    networks:
+      - app-network
 
 volumes:
   postgres_data:
     driver: local
+
+networks:
+  app-network:
+    driver: bridge
